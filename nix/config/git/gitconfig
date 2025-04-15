@@ -1,0 +1,15 @@
+[user]
+	name = Finn-TH
+	email = 87751347+Finn-TH@users.noreply.github.com.
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHyDoE2aCTmJc4PrWAb6Z/WVpbF7+UgRSo9TV1Vk+zjd
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
