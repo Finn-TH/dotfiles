@@ -11,6 +11,7 @@
     la = "ls -a";
     vim = "nvim";
     cl = "clear";
+    gst = "git status";
   };
 
   plugins = [

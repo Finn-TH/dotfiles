@@ -2,4 +2,6 @@
 font-family = MesloLGS NF
 font-size = 14
 theme = tokyonight
+#theme = tokyonight_moon
+
 

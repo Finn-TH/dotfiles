@@ -16,14 +16,12 @@ let
   ] else [];
 
   promptInitExtra = if useP10k then ''
-  [[ -f ${../home/.p10k.zsh} ]] && source ${../home/.p10k.zsh}
-'' else ''
-  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-'';
+    [[ -f ${../home/.p10k.zsh} ]] && source ${../home/.p10k.zsh}
+  '' else ''
+    export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+  '';
 
-
-in
-{
+in {
   programs.home-manager.enable = true;
 
   home = {
@@ -32,37 +30,39 @@ in
     stateVersion = "23.11";
   };
 
-  xdg = {
-    enable = true;
-    configFile."ghostty/config".source =
-      mkOutOfStoreSymlink ../config/ghostty/config;
+  # 📎 Symlinked dotfiles
+
+  home.file = {
+  	
+  #Homefiles in Nix Store (Immutable)
+
+    ".ssh/config".source       = ../config/ssh/config;
+    ".gitconfig".source        = ../config/git/gitconfig;
+    ".gitignore".source        = ../config/git/gitignore;
+
+  #Homefiles not in Nix Store (Mutable)
+
+    ".config/starship/starship.toml".source = 
+    mkOutOfStoreSymlink ../config/starship/starship-tokyonight.toml;
+    ".config/ghostty/config".source = 
+    mkOutOfStoreSymlink ../config/ghostty/config;
   };
 
-  #Homefiles Symlinked
-
-  home.file.".config/starship/starship.toml".source =
-    mkOutOfStoreSymlink ../config/starship/starship-tokyonight.toml;
-
-  home.file.".ssh/config".source = ../config/ssh/config;
-  home.file.".gitconfig".source = ../config/git/gitconfig;
-  home.file.".gitignore".source = ../config/git/gitignore;
-
-
   programs = {
-    # 🐚 Zsh shell config with plugins, aliases, prompt, etc
+    # 🐚 Zsh shell config (aliases, plugins, prompt, etc)
     zsh = import ../home/zsh.nix {
       inherit config pkgs promptPlugins promptInitExtra;
     };
 
-    # Enable starship package if used (optional runtime toggle)
+    # 💫 Prompt manager
     starship.enable = !useP10k;
 
-    # 🔍 Fuzzy finder (fzf)
+    # 🔍 Fuzzy finder
     fzf = import ../home/fzf.nix { inherit pkgs; };
 
-
-    # 📂 Smarter cd with zoxide
+    # 📂 Smarter cd
     zoxide = import ../home/zoxide.nix { inherit pkgs; };
   };
 }
+
 

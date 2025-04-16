@@ -8,6 +8,7 @@
     pkgs.gh
     pkgs.fzf
     pkgs.zoxide
+    pkgs.fastfetch
   ];
 
   homebrew = {
