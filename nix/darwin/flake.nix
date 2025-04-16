@@ -4,9 +4,12 @@
   environment.systemPackages = with pkgs; [
     pkgs.neovim
     pkgs.git
+    pkgs.lazygit
     pkgs.gitleaks
     pkgs.gh
     pkgs.fzf
+    pkgs.ripgrep
+    pkgs.fd
     pkgs.zoxide
     pkgs.fastfetch
   ];

@@ -46,7 +46,13 @@ in {
     mkOutOfStoreSymlink ../config/starship/starship-tokyonight.toml;
     ".config/ghostty/config".source = 
     mkOutOfStoreSymlink ../config/ghostty/config;
+    #Lazyvim
+    ".config/nvim".source = mkOutOfStoreSymlink "/Users/sean/.dotfiles/nix/config/nvim-lazyvim";
+
   };
+
+
+
 
   programs = {
     # 🐚 Zsh shell config (aliases, plugins, prompt, etc)
