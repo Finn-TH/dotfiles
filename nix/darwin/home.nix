@@ -51,9 +51,6 @@ in {
 
   };
 
-
-
-
   programs = {
     # 🐚 Zsh shell config (aliases, plugins, prompt, etc)
     zsh = import ../home/zsh.nix {

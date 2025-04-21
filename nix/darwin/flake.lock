@@ -3,7 +3,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nix-darwin",
           "nixpkgs"
         ]
       },
@@ -23,24 +22,7 @@
     },
     "nix-darwin": {
       "inputs": {
-        "home-manager": "home-manager",
-        "nix-darwin": "nix-darwin_2",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "path": "./darwin",
-        "type": "path"
-      },
-      "original": {
-        "path": "./darwin",
-        "type": "path"
-      },
-      "parent": []
-    },
-    "nix-darwin_2": {
-      "inputs": {
         "nixpkgs": [
-          "nix-darwin",
           "nixpkgs"
         ]
       },
@@ -76,7 +58,9 @@
     },
     "root": {
       "inputs": {
-        "nix-darwin": "nix-darwin"
+        "home-manager": "home-manager",
+        "nix-darwin": "nix-darwin",
+        "nixpkgs": "nixpkgs"
       }
     }
   },
