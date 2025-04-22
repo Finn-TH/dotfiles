@@ -7,14 +7,18 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: let
+  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, ... }: let
     system = "aarch64-darwin";
   in {
     darwinConfigurations."arrakis" = nix-darwin.lib.darwinSystem {
       inherit system;
+
       modules = [
+
+        # 🧠 Core macOS system config
         {
           nixpkgs = {
             config.allowUnfree = true;
@@ -24,20 +28,6 @@
           environment.systemPackages = with nixpkgs.legacyPackages.${system}; [
             neovim git lazygit gitleaks gh fzf ripgrep fd zoxide fastfetch
           ];
-
-          homebrew = {
-            enable = true;
-            casks = [
-              "ghostty" "zen-browser" "arc" "spotify"
-              "obsidian" "iina" "1password" "flux"
-              "stats" "chatgpt"
-            ];
-            onActivation = {
-              cleanup = "zap";
-              autoUpdate = true;
-              upgrade = true;
-            };
-          };
 
           fonts.packages = with nixpkgs.legacyPackages.${system}; [
             nerd-fonts.jetbrains-mono
@@ -77,8 +67,33 @@
           };
         }
 
-        home-manager.darwinModules.home-manager
+        # 🍺 Homebrew module + config
+        nix-homebrew.darwinModules.nix-homebrew
         {
+          nix-homebrew = {
+            enable = true;
+            enableRosetta = true;
+            user = "sean";
+            autoMigrate = true;
+          };
+
+          homebrew = {
+            enable = true;
+            casks = [
+              "ghostty" "zen-browser" "arc" "spotify"
+              "obsidian" "iina" "1password" "flux"
+              "stats" "chatgpt"
+            ];
+            onActivation = {
+              cleanup = "zap";
+              autoUpdate = true;
+              upgrade = true;
+            };
+          };
+        }
+
+        # 🏠 Home Manager integration
+        home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.sean = import ./home.nix;
