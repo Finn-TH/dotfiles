@@ -26,8 +26,23 @@
           };
 
           environment.systemPackages = with nixpkgs.legacyPackages.${system}; [
-            neovim git lazygit gitleaks gh fzf ripgrep fd zoxide fastfetch
+            neovim
+            git
+            lazygit
+            gitleaks
+            gh
+            fzf
+            ripgrep
+            fd 
+            zoxide 
+            fastfetch
+            aerospace
           ];
+
+          users.users.sean = {
+              name = "sean";
+              home = "/Users/sean/";
+            };
 
           fonts.packages = with nixpkgs.legacyPackages.${system}; [
             nerd-fonts.jetbrains-mono
@@ -35,8 +50,10 @@
           ];
 
           system.defaults = {
+            NSGlobalDomain.KeyRepeat = 2;
             trackpad.TrackpadThreeFingerDrag = true;
             dock = {
+              orientation = "left";
               show-recents = false;
               tilesize = 50;
               autohide = true;
@@ -56,8 +73,6 @@
           };
 
           programs.zsh.enable = true;
-
-          users.users.sean.home = "/Users/sean";
 
           home-manager.backupFileExtension = "backup";
 
@@ -82,7 +97,7 @@
             casks = [
               "ghostty" "zen-browser" "arc" "spotify"
               "obsidian" "iina" "1password" "flux"
-              "stats" "chatgpt"
+              "stats" "chatgpt" "transmission" "iina" "appcleaner"
             ];
             onActivation = {
               cleanup = "zap";

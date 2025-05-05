@@ -24,11 +24,7 @@ let
 in {
   programs.home-manager.enable = true;
 
-  home = {
-    username = "sean";
-    homeDirectory = "/Users/sean";
-    stateVersion = "23.11";
-  };
+  home.stateVersion = "23.11";
 
   # 📎 Symlinked dotfiles
 
